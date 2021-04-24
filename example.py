@@ -38,7 +38,8 @@ df = df.drop(['Embarked'], axis=1)
 
 # Separate X, Y
 X = df.drop('Survived', axis=1).values
-Y = pd.get_dummies(df['Survived'])
+Y = df['Survived']
+#Y = pd.get_dummies(df['Survived'])
 
 # Scale values
 scaler = MinMaxScaler()
@@ -51,12 +52,14 @@ X_train, X_test, Y_train, Y_test = train_test_split(X, Y, train_size=0.8)
 model = Sequential()
 model.add(Dense(32, input_shape=(9, ), activation='relu'))
 model.add(Dense(16, activation='relu'))
-model.add(Dense(2, activation='softmax'))
-model.compile(loss='categorical_crossentropy', optimizer=Adam(lr=0.004), metrics=['accuracy'])
+model.add(Dense(1, activation='sigmoid'))
+model.compile(loss='binary_crossentropy', optimizer=Adam(lr=0.004), metrics=['accuracy'])
 history = model.fit(x=X_train, y=Y_train, epochs=200, batch_size=16,
                     validation_split=0.2, callbacks=[EarlyStopping(monitor='loss', patience=2)])
 
 
 preds = model.predict(X_test)
-score = accuracy_score([np.argmax(x) for x in preds], [np.argmax(x) for x in Y_test.values])
+preds = preds.reshape(179, )
+preds = np.round(preds)
+score = accuracy_score(preds, Y_test)
 
