@@ -1,8 +1,13 @@
 # Titanic-problem
 Solution for Titanic problem (UMCS AI)
 
-Accuracy score: ~0.86
+'analyse.py' - code shown in the presentation
 
+'titanic.pdf' / 'titanic.pptx' - presentation for UMCS AI
+
+'example.py' - my solution for Titanic problem
+
+Accuracy score: ~0.86
 
 Used columns:
 
