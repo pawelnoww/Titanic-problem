@@ -16,6 +16,7 @@ from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.callbacks import EarlyStopping
 
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC
 
 def check(a, b='Survived'):
     print(df[[a, b]].groupby([a], as_index=False).mean())
@@ -96,4 +97,11 @@ knn.fit(X_train, Y_train)
 preds = knn.predict(X_test)
 score_knn = accuracy_score(preds, Y_test)
 print(f'Score for KNN: {score_knn}')
+
+svm = SVC()
+svm.fit(X_train, Y_train)
+preds = svm.predict(X_test)
+score_svm = accuracy_score(preds, Y_test)
+print(f'Score for SVM: {score_svm}')
+
 
